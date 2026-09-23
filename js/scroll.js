@@ -18,14 +18,17 @@
   var scenes = window.OrbytScenes;
 
   /* smoothTouch stays off (native touch scroll) — the reliable pairing
-     with ScrollTrigger pins; normalizeScroll keeps mobile browser-chrome
-     resizing (the address bar showing/hiding) from fighting the pin. */
+     with ScrollTrigger pins. normalizeScroll was tried here too (to keep
+     mobile browser-chrome resizing from fighting the pin) but it forces
+     ALL scrolling through a JS-simulated model instead of native touch
+     handling — on a real iPhone that showed up as the pinned act simply
+     sticking mid-animation on the first swipe and never continuing.
+     Left off (ScrollSmoother's own default) so touch input stays native. */
   var smoother = ScrollSmoother.create({
     wrapper: '#smooth-wrapper',
     content: '#smooth-content',
     smooth: 1,
     smoothTouch: false,
-    normalizeScroll: true,
     ignoreMobileResize: true
   });
   smoother.paused(true);

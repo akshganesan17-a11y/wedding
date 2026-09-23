@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The wedding of Akash &amp; Iswaryalakshmi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#09040f">
+<meta name="description" content="The wedding of Akash and Iswaryalakshmi — an invitation.">
+<meta name="format-detection" content="telephone=no">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500&family=Noto+Sans+Tamil:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="is-locked">
+
+<!-- ============ custom cursors ============ -->
+<canvas class="cursor-trail" id="cursorTrail"></canvas>
+
+<!-- ============ intro / loader ============
+     The warp jump: streaks fly past while the couple's own photos fly
+     toward the camera and dissolve, like the same hyperspace tunnel made
+     of snapshots instead of light — plain 2D canvas, no WebGL, so it's
+     equally smooth and reliable on phones. -->
+<div class="intro" id="intro">
+  <canvas class="intro__warp" id="introWarp"></canvas>
+  <canvas class="intro__petals" id="introPetals"></canvas>
+</div>
+
+<main id="top">
+
+<!-- ======================================================
+     01 / PHILOSOPHY  —  pinned, scroll scrubbed
+====================================================== -->
+<section class="sec sec--philosophy" id="philosophy">
+  <canvas class="starfield" id="starfield"></canvas>
+  <canvas class="petals petals--main" id="mainPetals"></canvas>
+
+  <!-- a slow-turning kolam — the geometric threshold pattern drawn at South
+       Indian doorways for auspicious occasions — sits behind the invitation
+       as quiet traditional texture, not a copy of any one real kolam, just
+       drawn in that style: a ring of loops strung between dots. -->
+  <svg class="hero-kolam" viewBox="0 0 400 400" aria-hidden="true">
+    <g fill="none" stroke="#F4A77C" stroke-width="1">
+      <g id="kolamMotif">
+        <path d="M200,40 C224,40 240,60 240,84 C240,60 264,52 280,64 C264,64 254,80 260,100 C246,84 224,80 200,88 C176,80 154,84 140,100 C146,80 136,64 120,64 C136,52 160,60 160,84 C160,60 176,40 200,40 Z"/>
+        <circle cx="200" cy="30" r="2.6" fill="#F4A77C" stroke="none"/>
+      </g>
+      <use href="#kolamMotif" transform="rotate(30 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(60 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(90 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(120 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(150 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(180 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(210 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(240 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(270 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(300 200 200)"/>
+      <use href="#kolamMotif" transform="rotate(330 200 200)"/>
+      <circle cx="200" cy="200" r="150" stroke-width=".6" opacity=".6"/>
+      <circle cx="200" cy="200" r="188" stroke-width=".6" opacity=".4"/>
+    </g>
+  </svg>
+
+  <!-- the invitation: first thing you see on load -->
+  <div class="hero-mark" id="heroMark">
+    <div class="hero-mark__type">
+      <!-- a simple ornamental bow — ceremonial rather than devotional -->
+      <svg class="hero-mark__bow" width="80" height="60" viewBox="0 0 80 60" aria-hidden="true">
+        <g fill="none" stroke="#F4A77C" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M38,30 C30,16 14,12 9,20 C4,28 16,36 38,30 Z"/>
+          <path d="M42,30 C50,16 66,12 71,20 C76,28 64,36 42,30 Z"/>
+          <path d="M36,33 L24,54 L31,50 L35,35 Z"/>
+          <path d="M44,33 L56,54 L49,50 L45,35 Z"/>
+          <circle cx="40" cy="30" r="4.5" fill="#F4A77C" stroke="none"/>
+        </g>
+      </svg>
+      <p class="hero-mark__kicker">The wedding of</p>
+      <h1 class="hero-mark__names">
+        <span>Akash <em>&amp;</em></span>
+        <span>Iswaryalakshmi</span>
+      </h1>
+    </div>
+  </div>
+
+  <!-- nudges first-time visitors to scroll; fades out on their first scroll -->
+  <div class="scroll-hint" id="scrollHint">
+    <span class="scroll-hint__label">Scroll</span>
+    <span class="scroll-hint__chevron"></span>
+  </div>
+
+  <!-- expanding circle + running type -->
+  <div class="expand" id="expand">
+    <div class="expand__box">
+      <div class="expand__ring"></div>
+      <div class="expand__core">
+        <span class="expand__core-fill"></span>
+        <div class="expand__text">Welcome, with love</div>
+      </div>
+    </div>
+    <div class="expand__dots"></div>
+  </div>
+
+  <!-- text act 01 -->
+  <div class="act-text act-text--1" id="actText1">
+    <div class="title-block talign-c">
+      <p class="eyebrow">Join us as we celebrate</p>
+      <p class="tx01">The Two Days</p>
+    </div>
+  </div>
+
+  <!-- three sphere groups -->
+  <div class="act-text act-text--2">
+    <div class="clip"><p class="tx02 tx02--date">Thursday, 29 October 2026</p></div>
+    <div class="clip"><p class="tx02 tx02--event">&#128141; Reception</p></div>
+    <div class="clip"><p class="tx02 tx02--time">7:00 PM onwards</p></div>
+  </div>
+  <div class="spheres" id="spheres1">
+    <div class="spheres__box spheres__box--1">
+      <div class="orb orb--a" style="--h:340"><span>RECEPTION</span></div>
+      <div class="orb orb--b" style="--h:20"><span>DINNER</span></div>
+      <div class="orb orb--c" style="--h:200"><span>DANCE</span></div>
+      <div class="orb orb--d" style="--h:45"><span>TOAST</span></div>
+    </div>
+  </div>
+
+  <div class="act-text act-text--3">
+    <div class="clip"><p class="tx02 tx02--date">Friday, 30 October 2026</p></div>
+    <div class="clip"><p class="tx02 tx02--event">&#128146; Muhurtham</p></div>
+    <div class="clip"><p class="tx02 tx02--time">6:00 AM &ndash; 7:30 AM</p></div>
+  </div>
+  <div class="spheres" id="spheres2">
+    <div class="spheres__box spheres__box--2">
+      <div class="orb orb--a" style="--h:330"><span>MUHURTHAM</span></div>
+      <div class="orb orb--b" style="--h:280"><span>RITUALS</span></div>
+      <div class="orb orb--c" style="--h:45"><span>BLESSINGS</span></div>
+    </div>
+  </div>
+
+  <!-- white reveal + circular film -->
+  <div class="film" id="film">
+    <div class="film__white"></div>
+
+    <div class="film__rings" id="filmRings">
+      <div class="film__rings-wrap" id="filmRingsWrap"></div>
+    </div>
+
+    <div class="film__center">
+      <div class="film__txt film__txt--top"><p class="tx02 move01">Akash &amp; Iswaryalakshmi</p></div>
+      <div class="film__disc" id="filmDisc">
+        <img src="assets/couple.jpg" alt="Akash and Iswaryalakshmi" class="film__disc-img">
+        <span class="film__disc-glow"></span>
+      </div>
+      <div class="film__txt film__txt--bottom"><p class="tx02 move02">are tying the knot.</p></div>
+      <div class="film__copy" id="filmCopy">
+        <p class="tx03">We can't wait to celebrate with the people we love most.<br class="only-pc">
+        Join us as we exchange vows and begin the next chapter<br class="only-pc"> of our story, together.</p>
+        <a class="pill" href="https://maps.app.goo.gl/hCuSm35qjZSMhVg56" target="_blank" rel="noopener noreferrer">
+          <span class="pill__label">GET DIRECTIONS<i class="tri"></i></span>
+          <span class="marquee">
+            <span class="marquee__line"><span>GET DIRECTIONS<i class="tri"></i>GET DIRECTIONS<i class="tri"></i>GET DIRECTIONS<i class="tri"></i></span><span>GET DIRECTIONS<i class="tri"></i>GET DIRECTIONS<i class="tri"></i>GET DIRECTIONS<i class="tri"></i></span></span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="film__blur"></div>
+  </div>
+</section>
+
+<div class="seam" id="seam"></div>
+
+<!-- ======================================================
+     02 / FAREWELL — the closing page
+====================================================== -->
+<section class="sec sec--farewell" id="farewell">
+  <canvas class="farewell__haze" id="farewellCanvas"></canvas>
+  <canvas class="petals petals--farewell" id="farewellPetals"></canvas>
+  <div class="farewell__copy" id="farewellCopy">
+    <!-- the couple's own portraits, sliding in from either side to meet
+         at the top; each gets an oval comic-style speech bubble, in Tamil,
+         before the closing line appears -->
+    <div class="farewell__portraits">
+      <div class="farewell__figure" id="groomFigure">
+        <p class="farewell__bubble">
+          <span class="farewell__bubble-main" lang="ta">இனிமேல் நாங்க ரெண்டு பேரும்… ❤️</span>
+        </p>
+        <img class="farewell__portrait" src="assets/groom-portrait.png" alt="" loading="lazy" width="521" height="900">
+      </div>
+      <div class="farewell__figure" id="brideFigure">
+        <p class="farewell__bubble">
+          <span class="farewell__bubble-main" lang="ta">ஒரே டீம்! 🥰</span>
+        </p>
+        <img class="farewell__portrait" src="assets/bride-portrait.png" alt="" loading="lazy" width="565" height="891">
+      </div>
+    </div>
+    <p class="tx02">With all our love,<br>Akash &amp; Iswaryalakshmi</p>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="js/canvas-scenes.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/scroll.js"></script>
+</body>
+</html>

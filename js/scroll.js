@@ -21,6 +21,15 @@
 
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollSmoother);
 
+  /* a real ScrollTrigger-level setting, not a ScrollSmoother option — it
+     stops a touch device's vertical browser-chrome resize (the address
+     bar sliding away as you scroll) from firing ScrollTrigger.refresh()
+     mid-scroll, which recalculates the pin's start/end positions while
+     it's actively pinned and can break it. Previously this was only set
+     inside the ScrollSmoother config below, so it silently stopped
+     applying at all once touch devices stopped using ScrollSmoother. */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
   var scenes = window.OrbytScenes;
 
   /* touch devices skip ScrollSmoother entirely (see comment above) and
@@ -33,8 +42,7 @@
     smoother = ScrollSmoother.create({
       wrapper: '#smooth-wrapper',
       content: '#smooth-content',
-      smooth: 1,
-      ignoreMobileResize: true
+      smooth: 1
     });
     smoother.paused(true);
   }

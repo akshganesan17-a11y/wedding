@@ -10,16 +10,7 @@
 
   var scenes = window.OrbytScenes;
 
-  /* ------------------------------------------------------------------ lenis
-     syncTouch (Lenis hijacking touchmove to simulate 1:1 scroll tracking)
-     is a known source of conflicts with GSAP ScrollTrigger's pinned
-     sections on real touch devices — the pin's own scroll-position
-     detection and Lenis's synced touch handling can end up fighting each
-     other, and the pinned act simply stops responding to further touch
-     input. Left unset here (Lenis defaults it to off) so touch devices
-     fall back to native momentum scroll, still eased via smoothWheel /
-     touchMultiplier below — the combination that plays reliably with
-     ScrollTrigger pins. */
+  /* ------------------------------------------------------------------ lenis */
   function lenisOptions() {
     var w = window.innerWidth;
     if (w > 1024) {
@@ -29,17 +20,23 @@
         lerp: 0.1,
         wheelMultiplier: 1.5,
         smoothWheel: true,
+        syncTouch: true,
+        syncTouchLerp: 0.1,
         touchMultiplier: 1.5
       };
     }
     if (w > 570) {
       return {
+        syncTouch: true,
+        syncTouchLerp: 0.1,
         touchMultiplier: 2,
         wheelMultiplier: 1.4,
         smoothWheel: true
       };
     }
     return {
+      syncTouch: true,
+      syncTouchLerp: 0.1,
       touchMultiplier: 1.5,
       touchInertiaMultiplier: 8,
       lerp: 0.1,

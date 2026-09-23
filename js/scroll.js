@@ -113,24 +113,6 @@
       { opacity: 1, scale: 1 },
       { opacity: 0, scale: 0.96, duration: 0.025, ease: 'none' });
 
-    /* the kolam ring belongs to the hero moment only — it's `position:
-       fixed` so it would otherwise stay on screen behind every act after
-       this (orbs, the white reveal, even the farewell page). Fade it out
-       in lockstep with the hero names and it never reappears. Its own
-       CSS animation (a continuous 220s rotation) keeps recalculating
-       transform every frame regardless of opacity, so pause it outright
-       once the fade-out finishes — an ongoing cost for the rest of the
-       visit otherwise — and resume it if the visitor scrolls back up
-       past this point. */
-    var heroKolamEl = q('.hero-kolam');
-    actOne.fromTo('.hero-kolam',
-      { opacity: .16 },
-      {
-        opacity: 0, duration: 0.025, ease: 'none',
-        onComplete: function () { if (heroKolamEl) heroKolamEl.style.animationPlayState = 'paused'; },
-        onReverseComplete: function () { if (heroKolamEl) heroKolamEl.style.animationPlayState = 'running'; }
-      }, '<');
-
     actOne.fromTo('.expand',
       { left: '9.8%', scale: 0, opacity: 1 },
       { left: '48%', scale: 3, opacity: 1, duration: 0.1, ease: 'power2.out' }, '<')
@@ -254,7 +236,7 @@
     return function () {
       ringSpin.kill();
       gsap.set('.expand, .expand__box, .expand__ring, .expand__core, .expand__core-fill, .expand__dots, .expand__text', { clearProps: 'all' });
-      gsap.set('.orb, .spheres, .spheres__box, .act-text, .act-text .tx02, .hero-mark__type, .hero-kolam', { clearProps: 'all' });
+      gsap.set('.orb, .spheres, .spheres__box, .act-text, .act-text .tx02, .hero-mark__type', { clearProps: 'all' });
       gsap.set('.film, .film__white, .film__blur, .film__rings, .film__ring, .film__disc, .film__copy, .film__txt .tx02', { clearProps: 'all' });
       gsap.set('#groomFigure, #brideFigure, .farewell__bubble, .farewell__copy .tx02', { clearProps: 'all' });
     };

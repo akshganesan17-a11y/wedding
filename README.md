@@ -21,14 +21,11 @@ their climb each one dissolves into a small burst of starlight. Tradition becomi
 literally: the wedding's own marigolds and the site's cosmic language fused into one
 motif instead of sitting side by side.
 
-Traditional South Indian Hindu wedding motifs run through every section, researched
-rather than guessed at (mandala/kolam symbolism, marigold and mango-leaf thoranam
-garlands as the standard florals — see Sources below): an ornamental bow (ceremonial
-rather than devotional) opens the invitation, a kolam-style ring (the geometric
-threshold pattern drawn at South Indian doorways) turns slowly behind the couple's
-names - and only there, fading out with the names as you scroll past so it never bleeds
-into later sections. All original SVG line art in the same gold-and-warm palette as the
-petals, not any copied template.
+Traditional South Indian Hindu wedding motifs run through the site, researched rather
+than guessed at (marigold and mango-leaf thoranam garlands as the standard florals —
+see Sources below): an ornamental bow (ceremonial rather than devotional) opens the
+invitation. All original SVG line art in the same gold-and-warm palette as the petals,
+not any copied template.
 
 ## Run it
 

@@ -38,21 +38,6 @@
   text-align: center;
   color: #fff;
 }
-.hero-kolam {
-  position: fixed;
-  top: 50%; left: 50%;
-  width: min(150vh, 165vw, 1200px);
-  height: min(150vh, 165vw, 1200px);
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  opacity: .16;
-  pointer-events: none;
-  animation: kolamTurn 220s linear infinite;
-}
-@keyframes kolamTurn { to { transform: translate(-50%, -50%) rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .hero-kolam { animation: none; }
-}
 .hero-mark__bow {
   width: clamp(48px, 5.4vw, 66px);
   height: auto;

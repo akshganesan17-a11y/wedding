@@ -1,13 +1,19 @@
 /* ==========================================================================
    ORBYT sample — scroll choreography
-   ScrollSmoother for the smoothed scroll, GSAP ScrollTrigger for the pinned
-   acts. Lenis (a third-party smooth-scroll library) previously drove this,
-   but its syncTouch touch handling has a well-documented conflict with
-   ScrollTrigger's pin mechanism on real touch devices — the pinned act
-   would simply stop responding to further input partway through, on both
-   iOS and Android. ScrollSmoother is GSAP's own first-party plugin, built
-   by the same team as ScrollTrigger specifically to interoperate with pins
-   correctly, so it doesn't have that class of bug. One builder runs for
+   ScrollSmoother for the smoothed scroll on desktop, GSAP ScrollTrigger for
+   the pinned acts. Lenis (a third-party smooth-scroll library) previously
+   drove this everywhere, but its syncTouch touch handling has a
+   well-documented conflict with ScrollTrigger's pin mechanism on real touch
+   devices — the pinned act would simply stop responding to further input
+   partway through. Swapping to ScrollSmoother (GSAP's own first-party
+   plugin) fixed that, but ScrollSmoother's own wrapper mechanism (a fixed
+   wrapper with the content moved via transform) turns out to still cause
+   visible jittering/shaking on iOS Safari specifically while a section is
+   pinned — a separate, also well-documented issue, confirmed here on a
+   real iPhone. GSAP's own recommended fix for both: don't run ScrollSmoother
+   on touch devices at all — desktop keeps the smooth wheel-scroll feel,
+   touch devices get plain native scroll, which is ScrollTrigger's own
+   best-tested, default mode and has neither issue. One builder runs for
    every breakpoint; only the scrub lengths change.
    ========================================================================== */
 (function (window, document) {
@@ -17,21 +23,21 @@
 
   var scenes = window.OrbytScenes;
 
-  /* smoothTouch stays off (native touch scroll) — the reliable pairing
-     with ScrollTrigger pins. normalizeScroll was tried here too (to keep
-     mobile browser-chrome resizing from fighting the pin) but it forces
-     ALL scrolling through a JS-simulated model instead of native touch
-     handling — on a real iPhone that showed up as the pinned act simply
-     sticking mid-animation on the first swipe and never continuing.
-     Left off (ScrollSmoother's own default) so touch input stays native. */
-  var smoother = ScrollSmoother.create({
-    wrapper: '#smooth-wrapper',
-    content: '#smooth-content',
-    smooth: 1,
-    smoothTouch: false,
-    ignoreMobileResize: true
-  });
-  smoother.paused(true);
+  /* touch devices skip ScrollSmoother entirely (see comment above) and
+     fall back to plain native scroll; body.is-locked's CSS already
+     handles the intro's scroll-lock without needing smoother.paused(),
+     and js/intro.js's window.scrollTo(0,0) already covers the reset
+     when there's no smoother to call .scrollTop() on. */
+  var smoother = null;
+  if (!ScrollTrigger.isTouch) {
+    smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 1,
+      ignoreMobileResize: true
+    });
+    smoother.paused(true);
+  }
   window.smoother = smoother;
   gsap.ticker.lagSmoothing(0);
 

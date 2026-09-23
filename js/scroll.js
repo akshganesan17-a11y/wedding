@@ -1,53 +1,35 @@
 /* ==========================================================================
    ORBYT sample — scroll choreography
-   Lenis for the smoothed scroll, GSAP ScrollTrigger for the pinned acts.
-   One builder runs for every breakpoint; only the scrub lengths change.
+   ScrollSmoother for the smoothed scroll, GSAP ScrollTrigger for the pinned
+   acts. Lenis (a third-party smooth-scroll library) previously drove this,
+   but its syncTouch touch handling has a well-documented conflict with
+   ScrollTrigger's pin mechanism on real touch devices — the pinned act
+   would simply stop responding to further input partway through, on both
+   iOS and Android. ScrollSmoother is GSAP's own first-party plugin, built
+   by the same team as ScrollTrigger specifically to interoperate with pins
+   correctly, so it doesn't have that class of bug. One builder runs for
+   every breakpoint; only the scrub lengths change.
    ========================================================================== */
 (function (window, document) {
   'use strict';
 
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, ScrollSmoother);
 
   var scenes = window.OrbytScenes;
 
-  /* ------------------------------------------------------------------ lenis */
-  function lenisOptions() {
-    var w = window.innerWidth;
-    if (w > 1024) {
-      return {
-        duration: 0.8,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        lerp: 0.1,
-        wheelMultiplier: 1.5,
-        smoothWheel: true,
-        syncTouch: true,
-        syncTouchLerp: 0.1,
-        touchMultiplier: 1.5
-      };
-    }
-    if (w > 570) {
-      return {
-        syncTouch: true,
-        syncTouchLerp: 0.1,
-        touchMultiplier: 2,
-        wheelMultiplier: 1.4,
-        smoothWheel: true
-      };
-    }
-    return {
-      syncTouch: true,
-      syncTouchLerp: 0.1,
-      touchMultiplier: 1.5,
-      touchInertiaMultiplier: 8,
-      lerp: 0.1,
-      wheelMultiplier: 1.4,
-      smoothWheel: true
-    };
-  }
-
-  window.lenis = new Lenis(lenisOptions());
-  window.lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(function (time) { window.lenis.raf(time * 1000); });
+  /* smoothTouch stays off (native touch scroll) — the reliable pairing
+     with ScrollTrigger pins; normalizeScroll keeps mobile browser-chrome
+     resizing (the address bar showing/hiding) from fighting the pin. */
+  var smoother = ScrollSmoother.create({
+    wrapper: '#smooth-wrapper',
+    content: '#smooth-content',
+    smooth: 1,
+    smoothTouch: false,
+    normalizeScroll: true,
+    ignoreMobileResize: true
+  });
+  smoother.paused(true);
+  window.smoother = smoother;
   gsap.ticker.lagSmoothing(0);
 
   /* ============================================================== builder */

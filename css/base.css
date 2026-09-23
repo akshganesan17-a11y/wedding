@@ -15,7 +15,8 @@ html {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: auto;
-  /* stop the browser's own pull-to-refresh / rubber-band fighting Lenis */
+  /* stop the browser's own pull-to-refresh / rubber-band fighting the
+     smoothed scroll (ScrollSmoother) */
   overscroll-behavior-y: none;
 }
 

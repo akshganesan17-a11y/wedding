@@ -27,7 +27,7 @@
     if (finished) return;
     finished = true;
 
-    if (window.lenis) window.lenis.scrollTo(0, { immediate: true, force: true });
+    if (window.smoother) window.smoother.scrollTop(0);
     window.scrollTo(0, 0);
 
     gsap.to(intro, {
@@ -42,7 +42,7 @@
     });
 
     document.body.classList.remove('is-locked');
-    if (window.lenis) window.lenis.start();
+    if (window.smoother) window.smoother.paused(false);
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
 
     window.dispatchEvent(new CustomEvent('orbyt:ready'));

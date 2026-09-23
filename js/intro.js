@@ -16,7 +16,7 @@
   var warpState = scenes.warp(document.getElementById('introWarp'));
   var petalsLoop = scenes.petals(document.getElementById('introPetals'), { count: 12 });
 
-  var MAX_PHOTOS = 20;
+  var MAX_PHOTOS = 12;
   var MIN_PHOTOS_FOR_SHUFFLE = 2;
   var INTRO_DURATION_S = 3.3;
   var SAFETY_TIMEOUT_MS = 6500;

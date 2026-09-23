@@ -89,6 +89,7 @@
     });
 
     var expandText = q('.expand__text');
+    var expandCoreImg = q('.expand__core-img');
 
     var actOne = gsap.timeline({
       scrollTrigger: {
@@ -118,9 +119,9 @@
       { left: '48%', scale: 3, opacity: 1, duration: 0.1, ease: 'power2.out' }, '<')
       .fromTo('.expand__box', { left: -12 }, { left: 0, duration: 0.1, ease: 'power2.out' }, '<');
 
-    actOne.fromTo(expandText,
-      { x: function () { return expandText.offsetWidth * (window.innerWidth <= 1280 ? 0.5 : 0.3); } },
-      { x: function () { return -expandText.offsetWidth; }, duration: 0.2, ease: 'power1.inOut' },
+    actOne.fromTo([expandText, expandCoreImg],
+      { x: function (i, target) { return target.offsetWidth * (window.innerWidth <= 1280 ? 0.5 : 0.3); } },
+      { x: function (i, target) { return -target.offsetWidth; }, duration: 0.2, ease: 'power1.inOut' },
       '<+=0.1');
 
     actOne.fromTo('.expand__ring',
@@ -133,7 +134,7 @@
         { opacity: 0, rotate: 0, scale: 2.5 },
         { opacity: 1, rotate: 180, scale: 3.5, duration: 0.12 }, '<');
 
-    actOne.fromTo('.expand__core-fill', { scale: 1 }, { scale: 0, duration: 0.05, ease: 'power2.out' }, '>')
+    actOne.fromTo('.expand__core-fill, .expand__core-img', { scale: 1 }, { scale: 0, duration: 0.05, ease: 'power2.out' }, '>')
       .fromTo('.expand__dots',
         { opacity: 1, rotate: -180, scale: 3.5 },
         { opacity: 0, rotate: 0, scale: 0, duration: 0.1, ease: 'power3.out' }, '<')
@@ -235,7 +236,7 @@
     /* cleanup for the matchMedia context */
     return function () {
       ringSpin.kill();
-      gsap.set('.expand, .expand__box, .expand__ring, .expand__core, .expand__core-fill, .expand__dots, .expand__text', { clearProps: 'all' });
+      gsap.set('.expand, .expand__box, .expand__ring, .expand__core, .expand__core-fill, .expand__core-img, .expand__dots, .expand__text', { clearProps: 'all' });
       gsap.set('.orb, .spheres, .spheres__box, .act-text, .act-text .tx02, .hero-mark__type', { clearProps: 'all' });
       gsap.set('.film, .film__white, .film__blur, .film__rings, .film__ring, .film__disc, .film__copy, .film__txt .tx02', { clearProps: 'all' });
       gsap.set('#groomFigure, #brideFigure, .farewell__bubble, .farewell__copy .tx02', { clearProps: 'all' });

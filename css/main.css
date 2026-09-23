@@ -135,6 +135,15 @@
   z-index: 12;
 }
 .expand__core-fill { display: block; width: 100%; height: 100%; border-radius: 50%; background: #fff; }
+.expand__core-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 1;
+  pointer-events: none;
+}
 .expand__text {
   position: fixed;
   top: 50%; left: 0;

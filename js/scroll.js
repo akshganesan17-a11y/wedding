@@ -99,10 +99,20 @@
     /* the kolam ring belongs to the hero moment only — it's `position:
        fixed` so it would otherwise stay on screen behind every act after
        this (orbs, the white reveal, even the farewell page). Fade it out
-       in lockstep with the hero names and it never reappears. */
+       in lockstep with the hero names and it never reappears. Its own
+       CSS animation (a continuous 220s rotation) keeps recalculating
+       transform every frame regardless of opacity, so pause it outright
+       once the fade-out finishes — an ongoing cost for the rest of the
+       visit otherwise — and resume it if the visitor scrolls back up
+       past this point. */
+    var heroKolamEl = q('.hero-kolam');
     actOne.fromTo('.hero-kolam',
       { opacity: .16 },
-      { opacity: 0, duration: 0.025, ease: 'none' }, '<');
+      {
+        opacity: 0, duration: 0.025, ease: 'none',
+        onComplete: function () { if (heroKolamEl) heroKolamEl.style.animationPlayState = 'paused'; },
+        onReverseComplete: function () { if (heroKolamEl) heroKolamEl.style.animationPlayState = 'running'; }
+      }, '<');
 
     actOne.fromTo('.expand',
       { left: '9.8%', scale: 0, opacity: 1 },

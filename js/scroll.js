@@ -225,26 +225,7 @@
       .to('.film__blur', { opacity: 1, duration: 0.05 }, '<')
       .to({}, { duration: 0.04 });
 
-    /* ----------------------------------------------- seam: white -> black
-       once the pin releases, the section scrolls away normally (its own
-       full viewport height) still showing the white film act, frozen at
-       its final frame — against the black farewell section right below
-       it that's a hard, jarring cut, not a fade. Fade the whole section
-       out (not just .film — its own opacity is already owned by actOne's
-       scrub, so a second tween on it would fight for control) across
-       exactly that hand-off distance, revealing the page's own black
-       backdrop, so it reads as one continuous scroll instead of a glitch. */
-    gsap.to('#philosophy', {
-      opacity: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#philosophy',
-        start: 'bottom bottom',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-
+    /* ----------------------------------------------- seam: white -> black */
     var seamTl = gsap.timeline({
       scrollTrigger: { trigger: '#seam', start: 'top 60%', end: '+=5%', scrub: 0.5 }
     });
@@ -275,7 +256,6 @@
       gsap.set('.expand, .expand__box, .expand__ring, .expand__core, .expand__core-fill, .expand__dots, .expand__text', { clearProps: 'all' });
       gsap.set('.orb, .spheres, .spheres__box, .act-text, .act-text .tx02, .hero-mark__type, .hero-kolam', { clearProps: 'all' });
       gsap.set('.film, .film__white, .film__blur, .film__rings, .film__ring, .film__disc, .film__copy, .film__txt .tx02', { clearProps: 'all' });
-      gsap.set('#philosophy', { clearProps: 'opacity' });
       gsap.set('#groomFigure, #brideFigure, .farewell__bubble, .farewell__copy .tx02', { clearProps: 'all' });
     };
   }
